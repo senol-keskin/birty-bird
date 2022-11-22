@@ -3,5 +3,5 @@ export type PartnerCardProps = {
 }
 
 export const PartnerCard: React.FC<PartnerCardProps> = ({ name }) => {
-	return <div className='border p-3 md:p-5 rounded-lg shadow-md'>{name}</div>
+	return <div className='border p-3 md:p-5 rounded-lg shadow-md bg-white'>{name}</div>
 }
