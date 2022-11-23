@@ -1,23 +1,20 @@
-import { render, screen, waitFor, Providers, renderHook } from '@test-wrapper'
-import { server, rest } from '~/mocks/server'
-
 import Home from '~/pages/index'
-import { useLocations } from '~/hooks/useLocations'
+import { rest } from 'msw'
+import { renderWithClient } from '~/mocks/utils'
 
-global.fetch = jest.fn(() =>
-	Promise.resolve({
-		json: () => Promise.resolve({ test: 100 }),
-	}),
-) as jest.Mock
+import { server } from '~/jest.setup'
 
 describe('Home page', () => {
-	const renderHomePage = () => render(<Home />)
+	test('show loading state', () => {
+		const renderHome = renderWithClient(<Home />)
 
-	test('should render with loading', () => {
-		renderHomePage()
+		expect(renderHome.getByText(/loading/i)).toBeInTheDocument()
+	})
 
-		const loader = screen.getByText(/loading/i)
+	test('show error state', async () => {
+		server.use(rest.get('/api/locations', (req, res, ctx) => res(ctx.status(500))))
 
-		expect(loader).toBeInTheDocument()
+		const result = renderWithClient(<Home />)
+		expect(await result.findByText(/an error occured/i)).toBeInTheDocument()
 	})
 })

@@ -16,7 +16,8 @@ export default function Home() {
 			</div>
 		)
 
-	if (!data || error) return <div role={'alert'}>{error ? error.message : 'no result'}</div>
+	if (!data || error instanceof Error)
+		return <div role={'alert'}>An error occured {error ? error.message : 'no result'}</div>
 
 	return (
 		<div className='mx-auto p-3 max-w-[1200px] md:p-5'>

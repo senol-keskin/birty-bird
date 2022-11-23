@@ -12,6 +12,7 @@ export type Locations = Location[]
 const fetchLocations = async (km: number): Promise<Locations> => {
 	const response = await fetch(`/api/locations?km=${km}`)
 	const data = await response.json()
+
 	return data
 }
 
