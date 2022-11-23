@@ -2,7 +2,7 @@ import type { MutableRefObject } from 'react'
 
 import { useState, useRef } from 'react'
 import { DistanceForm } from '~/components/distance-form'
-import { PartnerCard } from '~/components/partner-card'
+import { PartnerCard } from '~/components/partner-card/partner-card'
 import { useLocations } from '~/hooks/useLocations'
 
 export default function Home() {
@@ -16,7 +16,7 @@ export default function Home() {
 			</div>
 		)
 
-	if (!data) return <div className='dan'>{error ? error.message : 'no result'} </div>
+	if (!data || error) return <div role={'alert'}>{error ? error.message : 'no result'}</div>
 
 	return (
 		<div className='mx-auto p-3 max-w-[1200px] md:p-5'>
