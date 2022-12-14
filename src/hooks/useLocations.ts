@@ -1,4 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
+import axios from 'axios'
 
 export type Location = {
 	latitude: string
@@ -10,10 +11,11 @@ export type Location = {
 export type Locations = Location[]
 
 const fetchLocations = async (km: number): Promise<Locations> => {
-	const response = await fetch(`/api/locations?km=${km}`)
-	const data = await response.json()
+	const response = await axios.get('/api/locations', {
+		params: { km },
+	})
 
-	return data
+	return response.data
 }
 
 /**

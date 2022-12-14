@@ -6,7 +6,7 @@ import fixtures from '~/mocks/fixture.json'
 
 export const handlers = [
 	rest.get('/api/locations', (req, res, ctx) => {
-		return res(ctx.status(200), ctx.json({ fixtures }))
+		return res(ctx.status(200), ctx.json(fixtures))
 	}),
 ]
 
